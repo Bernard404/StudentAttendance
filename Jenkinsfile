@@ -1,17 +1,17 @@
 pipeline {
     agent any
     stages {
-        stage('Cleanup') {
+        stage('Clean') {
             steps {
                 deleteDir()
             }
         }
-        stage('Fetch') {
+        stage('Pull') {
             steps {
                 sh 'git clone "https://github.com/Bernard404/studentAttendance.git"'
             }
         }
-        stage('Test') {
+        stage('Testing') {
             steps {
                 sh 'mvn test -f "studentAttendance"'
             }
