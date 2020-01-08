@@ -1,24 +1,25 @@
 pipeline {
     agent any
     stages {
-        stage('Cleanup') {
-            steps {
-                deleteDir()
-            }
-        }
         stage('Fetch') {
             steps {
-                sh 'git clone "https://github.com/Bernard404/StudentAttendance.git"'
+                sh 'git clone "https://github.com/m-codes/student-attendance-jenkins.git"'
             }
         }
         stage('Build') {
             steps {
-                 sh 'mvn compile -f "StudentAttendance"'
+                 sh 'mvn clean -f "student-attendance-jenkins"'
+                 sh 'mvn compile -f "student-attendance-jenkins"'
             }
         }
         stage('Test') {
             steps {
-                sh 'mvn test -f "StudentAttendance"'
+                sh 'mvn test -f "student-attendance-jenkins"'
+            }
+        }
+        stage('Cleanup') {
+            steps {
+                deleteDir()
             }
         }
     }
