@@ -6,16 +6,23 @@ pipeline {
                 sh 'git clone "https://github.com/Bernard404/studentAttendance.git"'
             }
         }
+        stage('Cleanup') {
+            steps {
+                deleteDir()
+            }
+        }
         
         stage('Test') {
             steps {
                 sh 'mvn test -f "studentAttendance"'
             }
         }
-        stage('Cleanup') {
+        stage('Build') {
             steps {
-                deleteDir()
+                 sh 'mvn clean -f "studentAttendance"'
+                 sh 'mvn compile -f "studentAttendance"'
             }
         }
+        
     }
 }
